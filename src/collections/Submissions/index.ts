@@ -6,7 +6,12 @@ export const Submissions: CollectionConfig = {
     useAsTitle: "id",
     description: "Images uploaded by users for model training.",
   },
-  access: { read: () => true, create: () => true },
+  access: {
+    read: () => true,
+    create: () => true,
+    update: () => true,
+    delete: () => true,
+  },
 
   fields: [
     {
