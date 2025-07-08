@@ -7,13 +7,13 @@ export const Submissions: CollectionConfig = {
     description: "Images uploaded by users for model training.",
   },
   access: { read: () => true, create: () => true },
+
   fields: [
     {
       name: "image",
-      type: "relationship",
+      type: "upload",
       relationTo: "media",
       required: true,
-
       admin: {
         description: "The image submitted by the user.",
         position: "sidebar",
