@@ -27,7 +27,6 @@ The primary purpose of this project is to provide a robust, shared API and admin
 - **CMS:** Payload CMS 3.0
 - **Database:** PostgreSQL (hosted on Neon)
 - **File Storage:** Cloudflare R2
-- **Admin UI:** Tailwind CSS
 
 ---
 

@@ -31,6 +31,9 @@ if (
     "Missing required S3 environment variables. Please check your .env file."
   );
 }
+const corsOrigins = process.env.CORS_ORIGINS?.split(",") || [
+  "http://localhost:3000",
+];
 
 export default buildConfig({
   admin: {
@@ -45,6 +48,9 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
+  serverURL: process.env.PAYLOAD_SERVER_URL || "http://localhost:3000",
+  cors: corsOrigins,
+
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || "",
@@ -52,8 +58,6 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    /* payloadCloudPlugin(), */
-    // storage-adapter-placeholder
     s3Storage({
       collections: {
         media: {
