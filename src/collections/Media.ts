@@ -10,7 +10,7 @@ export const Media: CollectionConfig = {
     {
       name: "alt",
       type: "text",
-      required: true,
+      required: false,
       label: 'Description (e.g., "Crushed Coke Can on Grass")',
     },
   ],
