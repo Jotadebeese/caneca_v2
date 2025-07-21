@@ -10,7 +10,7 @@ import { Media } from "./collections/Media";
 import { Submissions } from "./collections/Submissions";
 import { Labels } from "./collections/labels";
 import { s3Storage } from "@payloadcms/storage-s3";
-import { getLabelCount } from "./app/endpoints/label-count";
+import { getLabelCounts } from "./app/endpoints/label-count";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -51,7 +51,7 @@ export default buildConfig({
   },
   serverURL: process.env.PAYLOAD_SERVER_URL || "http://localhost:3000",
   cors: corsOrigins,
-  endpoints: [getLabelCount],
+  endpoints: [getLabelCounts],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || "",

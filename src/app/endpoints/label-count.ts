@@ -1,7 +1,6 @@
-import { Label } from "@/payload-types";
-import { Endpoint, PayloadRequest } from "payload";
+import { Endpoint, headersWithCors, PayloadRequest } from "payload";
 
-export const getLabelCount: Endpoint = {
+export const getLabelCounts: Endpoint = {
   path: "/label-counts",
   method: "get",
   handler: async (req: PayloadRequest) => {
@@ -21,25 +20,35 @@ export const getLabelCount: Endpoint = {
 
       const counts: Record<string, number> = {};
       for (const sub of submissions.docs) {
-        const labelId = sub.userCorrectedLabel as Label;
-        if (counts[labelId.id]) {
-          counts[labelId.id]++;
-        } else {
-          counts[labelId.id] = 1;
+        const labelId = sub.userCorrectedLabel;
+
+        if (typeof labelId === "number") {
+          const key = labelId.toString();
+
+          if (counts[key]) {
+            counts[key]++;
+          } else {
+            counts[key] = 1;
+          }
         }
       }
 
-      return Response.json({
-        counts,
-        message: "Label counts retrieved successfully",
+      return Response.json(counts, {
+        headers: headersWithCors({
+          headers: new Headers(),
+          req,
+        }),
       });
     } catch (error) {
       return Response.json(
+        { error: "Failed to retrieve label counts" },
         {
-          error: "Failed to retrieve label counts",
-          details: error instanceof Error ? error.message : "Unknown error",
-        },
-        { status: 500 }
+          status: 500,
+          headers: headersWithCors({
+            headers: new Headers(),
+            req,
+          }),
+        }
       );
     }
   },
