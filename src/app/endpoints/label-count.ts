@@ -9,11 +9,11 @@ export const getLabelCounts: Endpoint = {
 
       const submissions = await payload.find({
         collection: "submissions",
-        where: {
+        /* where: {
           isVerifiedByAdmin: {
             equals: true,
           },
-        },
+        }, */
         limit: 100000,
         depth: 0,
       });
