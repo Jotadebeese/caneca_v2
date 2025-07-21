@@ -64,4 +64,5 @@ export const renameMediaOnLabelChange: CollectionAfterChangeHook = async ({
       }
     }
   }
+  return doc;
 };
